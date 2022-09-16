@@ -4,5 +4,5 @@ project(computerov)
 set(CMAKE_CXX_STANDARD 20)
 
 
-include_directories(include)
-add_executable(computor main.cpp)
+include_directories(srcs/include)
+add_executable(computor srcs/computor.cpp)

@@ -1,6 +1,7 @@
 #include <regex>
 #include <map>
-#include "types.hpp"
+#include <sstream>
+#include "math_a_little.hpp"
 #include "complex.hpp"
 
 template<typename T>
@@ -54,7 +55,7 @@ int main(const int argv, const char** args)
 	} );
 	for (auto l:parsed)
 	{
-		stream << l.second << "*X^" << l.first << " ";
+		stream << (l.second > 0 ? "+" : "") << "*X^" << l.first << " ";
 	}
 	auto p_degree = (--parsed.end())->first;
 	stream << " = 0" << std::endl << "Polynomial degree: " << p_degree << std::endl;
@@ -76,7 +77,7 @@ int main(const int argv, const char** args)
 			stream << "Discriminant is strictly negative, the two complex solutions are:" << std::endl;
 			roots = {{((parsed[1] * -1) - complex_number(0., sqrt_(mod_(D), 2))) / (2 * parsed[2])},
 					 {(parsed[1] * -1 + complex_number(0., sqrt_(mod_(D), 2))) / (2 * parsed[2])}};
-		} else if (mod_(D) - mod_(D) < std::numeric_limits<double>::epsilon())
+		} else if (D > 0)
 		{
 			stream << "Discriminant is strictly positive, the two solutions are:" << std::endl;
 			roots = {{(parsed[1] * -1 - sqrt_(D, 2)) / (2 * parsed[2])},
